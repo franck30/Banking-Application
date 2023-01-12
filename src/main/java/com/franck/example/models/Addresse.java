@@ -10,6 +10,7 @@ import lombok.experimental.SuperBuilder;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Data
 @NoArgsConstructor
@@ -27,6 +28,9 @@ public class Addresse extends AbstractEntity{
     private Integer zipCode;
 
     private String city;
+
+    @OneToOne
+    private User user;
 
     private String country;
 }
