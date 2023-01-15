@@ -1,5 +1,6 @@
-package com.franck.example;
+package com.franck.example.validators;
 
+import com.franck.example.exceptions.ObjectValidationException;
 import org.springframework.stereotype.Component;
 
 import javax.validation.ConstraintViolation;
@@ -23,7 +24,7 @@ public class ObjectsValidator<T> {
             Set<String> errorMessages = violations.stream()
                     .map(ConstraintViolation::getMessage)
                     .collect(Collectors.toSet());
-            // todo raise an exception
+            throw new ObjectValidationException(errorMessages, objectToValidate.getClass().getName());
         }
     }
 }
