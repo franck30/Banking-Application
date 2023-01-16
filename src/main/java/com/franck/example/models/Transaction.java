@@ -19,8 +19,6 @@ import java.time.LocalDateTime;
 public class Transaction extends AbstractEntity{
 
 
-
-
     private BigDecimal amount;
 
     @Enumerated(EnumType.STRING)

@@ -7,10 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -30,6 +27,7 @@ public class Addresse extends AbstractEntity{
     private String city;
 
     @OneToOne
+    @JoinColumn(name = "id_user")
     private User user;
 
     private String country;
