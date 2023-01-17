@@ -51,4 +51,12 @@ public class ContactServiceImpl implements ContactService {
 
 
     }
+
+    @Override
+    public List<ContactDto> findAllByUserId(Integer userId) {
+        return repository.findAllByUserId(userId)
+                .stream()
+                .map(ContactDto::fromEntity)
+                .collect(Collectors.toList());
+    }
 }

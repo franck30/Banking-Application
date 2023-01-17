@@ -1,9 +1,13 @@
 package com.franck.example.services.impl;
 
 
+import com.franck.example.dto.AccountDto;
 import com.franck.example.dto.UserDto;
+import com.franck.example.models.Account;
 import com.franck.example.models.User;
+import com.franck.example.repository.AccountRepository;
 import com.franck.example.repository.UserRepository;
+import com.franck.example.services.AccountService;
 import com.franck.example.services.UserService;
 import com.franck.example.validators.ObjectsValidator;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +25,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
     private final ObjectsValidator<UserDto> validator;
+    private final AccountService accountService;
 
 
     @Override
@@ -52,5 +57,31 @@ public class UserServiceImpl implements UserService {
         //todo check before delete
 
         repository.deleteById(id);
+    }
+
+    @Override
+    public Integer validateAccount(Integer id) {
+        User user = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No user was found for user account validation"));
+        user.setActive(true);
+        //create a bank account for this user
+        AccountDto accountDto = AccountDto.builder()
+                .user(UserDto.fromEntity(user))
+                .build();
+        accountService.save(accountDto);
+        repository.save(user);
+        return null;
+    }
+
+    @Override
+    public Integer invalidateAccount(Integer id) {
+
+        User user = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("No user was found for user account validation"));
+        user.setActive(false);
+        repository.save(user);
+
+        return user.getId();
+
     }
 }

@@ -40,7 +40,20 @@ public class AccountServiceImpl implements AccountService {
         validator.validate(dto);
 
 
+
         Account account = AccountDto.toEntity(dto);
+
+        boolean userhasAlreadyAnAccount = repository.findByUserId(account.getUser().getId()).isPresent();
+
+        if (userhasAlreadyAnAccount) {
+            throw new OperationNonPermittedException(
+                    "the selected user has already an active account",
+                    "create account",
+                    "Account service",
+                    "Account creation"
+            );
+        }
+
 
         //generate random iban when creating new account else do not update the iban
         if (dto.getId() != null) {
