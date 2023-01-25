@@ -27,14 +27,14 @@ public class AccountServiceImpl implements AccountService {
     public Integer save(AccountDto dto) {
         // block account update -> iban cannot be updated
 
-        /*if (dto.getId() != null) {
+        if (dto.getId() != null) {
             throw new OperationNonPermittedException(
                     "Account cannot be updated",
                     "save account",
                     "Account",
                     "update not permitted"
             );
-        }*/
+        }
 
 
         validator.validate(dto);
@@ -56,7 +56,7 @@ public class AccountServiceImpl implements AccountService {
 
 
         //generate random iban when creating new account else do not update the iban
-        if (dto.getId() != null) {
+        if (dto.getId() == null) {
             account.setIban(generateRandomIban());
         }
         return repository.save(account).getId();

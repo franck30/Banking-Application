@@ -22,18 +22,19 @@ public class UserDto {
     @NotNull
     @NotEmpty
     @NotBlank
-    @Size(min = 8, max = 16 )
+
     private String lastname;
 
     @NotNull
     @NotEmpty
     @NotBlank
-    @Email
+    @Email(message = "l'email n'est pas conforme")
     private String email;
 
     @NotNull
     @NotEmpty
     @NotBlank
+    @Size(min = 8, max = 16,message = "le mot de passe doit etre entre 8 et 16 caracteres")
     private String password;
 
     public static UserDto fromEntity(User user) {
