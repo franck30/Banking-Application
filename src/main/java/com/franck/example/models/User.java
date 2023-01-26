@@ -25,6 +25,8 @@ public class User extends AbstractEntity{
 
     private String lastname;
 
+
+    @Column(unique = true)
     private String email;
 
     private String password;

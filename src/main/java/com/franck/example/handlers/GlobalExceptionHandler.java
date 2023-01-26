@@ -2,6 +2,7 @@ package com.franck.example.handlers;
 
 import com.franck.example.exceptions.ObjectValidationException;
 import com.franck.example.exceptions.OperationNonPermittedException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -40,6 +41,17 @@ public class GlobalExceptionHandler {
                 .errorMessage(exception.getMessage())
                 .build();
         return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+                .body(representation);
+    }
+
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ExceptionRepresentation> handleException() {
+        ExceptionRepresentation representation = ExceptionRepresentation.builder()
+                .errorMessage("A user already exist with the provided email")
+                .build();
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
                 .body(representation);
     }
 

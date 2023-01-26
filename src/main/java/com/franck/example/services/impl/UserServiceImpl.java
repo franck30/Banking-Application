@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
                 .build();
         accountService.save(accountDto);
         repository.save(user);
-        return null;
+        return user.getId();
     }
 
     @Override
