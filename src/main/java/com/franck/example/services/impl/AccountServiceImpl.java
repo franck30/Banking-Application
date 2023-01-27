@@ -45,7 +45,7 @@ public class AccountServiceImpl implements AccountService {
 
         boolean userhasAlreadyAnAccount = repository.findByUserId(account.getUser().getId()).isPresent();
 
-        if (userhasAlreadyAnAccount) {
+        if (userhasAlreadyAnAccount && account.getUser().isActive()) {
             throw new OperationNonPermittedException(
                     "the selected user has already an active account",
                     "create account",

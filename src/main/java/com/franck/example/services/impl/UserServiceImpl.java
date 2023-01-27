@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,15 +61,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public Integer validateAccount(Integer id) {
         User user = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("No user was found for user account validation"));
-        user.setActive(true);
         //create a bank account for this user
         AccountDto accountDto = AccountDto.builder()
                 .user(UserDto.fromEntity(user))
                 .build();
         accountService.save(accountDto);
+
+        user.setActive(true);
         repository.save(user);
         return user.getId();
     }
