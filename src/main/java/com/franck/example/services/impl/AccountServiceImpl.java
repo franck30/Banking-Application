@@ -27,14 +27,14 @@ public class AccountServiceImpl implements AccountService {
     public Integer save(AccountDto dto) {
         // block account update -> iban cannot be updated
 
-        if (dto.getId() != null) {
-            throw new OperationNonPermittedException(
-                    "Account cannot be updated",
-                    "save account",
-                    "Account",
-                    "update not permitted"
-            );
-        }
+//        if (dto.getId() != null) {
+//            throw new OperationNonPermittedException(
+//                    "Account cannot be updated",
+//                    "save account",
+//                    "Account",
+//                    "update not permitted"
+//            );
+//        }
 
 
         validator.validate(dto);
