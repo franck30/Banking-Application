@@ -1,6 +1,7 @@
 package com.franck.example.repository;
 
 import com.franck.example.dto.TransactionDto;
+import com.franck.example.dto.TransactionSumDetails;
 import com.franck.example.models.Transaction;
 import com.franck.example.models.TransactionType;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,6 +25,6 @@ public interface TransactionRepository extends JpaRepository<Transaction, Intege
     @Query("select max(abs(t.amount)) as amount from Transaction t where t.user.id = :userId and t.type = :transactionType")
     BigDecimal findHighestAmountByTransactionType(Integer userId, TransactionType transactionType);
 
-    @Query("select t.createdDate, sum(t.amount) from Transaction t where t.user.id = :userId and t.createdDate between :start and :end group by  t.createdDate")
-    Map<LocalDate, BigDecimal> findSumTransactionsByDate(LocalDateTime start, LocalDateTime end, Integer userId);
+    @Query("select t.createdDate as transactionDate, sum(t.amount) from Transaction t where t.user.id = :userId and t.createdDate between :start and :end group by  t.createdDate")
+    List<TransactionSumDetails> findSumTransactionsByDate(LocalDateTime start, LocalDateTime end, Integer userId);
 }

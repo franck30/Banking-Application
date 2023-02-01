@@ -1,5 +1,6 @@
 package com.franck.example.services.impl;
 
+import com.franck.example.dto.TransactionSumDetails;
 import com.franck.example.models.TransactionType;
 import com.franck.example.repository.TransactionRepository;
 import com.franck.example.services.StatisticsService;
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -20,7 +22,7 @@ public class StaticsServiceImpl implements StatisticsService {
     private final TransactionRepository repository;
 
     @Override
-    public Map<LocalDate, BigDecimal> findSumTransactionByDate(LocalDate startDate, LocalDate endDate, Integer userId) {
+    public List<TransactionSumDetails> findSumTransactionByDate(LocalDate startDate, LocalDate endDate, Integer userId) {
 
         LocalDateTime start = LocalDateTime.of(startDate, LocalTime.of(0, 0, 0));
         LocalDateTime end = LocalDateTime.of(startDate, LocalTime.of(23, 59, 59));
