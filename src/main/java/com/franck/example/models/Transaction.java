@@ -9,6 +9,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -25,6 +26,10 @@ public class Transaction extends AbstractEntity{
     private TransactionType type;
 
     private String destinationIban;
+
+
+    @Column(updatable = false)
+    private LocalDate transactionDate;
 
 
 
