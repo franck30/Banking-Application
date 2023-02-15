@@ -22,6 +22,8 @@ public class SecurityConfig {
 
     private final UserDetailsService userDetailsService;
 
+    private final JwtAuthenticationFilter jwtAuthFilter;
+
 
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
